@@ -4,13 +4,16 @@
 
 Quorum transforms messy inputs — text, voice, images — into clear decisions and actions, instantly. Not a dashboard. A decision system.
 
-[Live Demo](https://quorum-demo.vercel.app/)
+[Live Demo](https://quorum-demo.vercel.app/)   |   
 <a href="https://github.com/jabnow/Quorum/blob/main/slides.pdf" target="_blank">[slides deck]</a>
 
 ---
 
 ```
-A quorum is the minimum number of members (often a majority or a specific number defined in bylaws) required to be present at a meeting for an organization to legally transact business or vote. Without a quorum, decisions are invalid. It ensures balanced representation and prevents small groups from imposing decisions. 
+A quorum is the minimum number of members (often a majority or a specific number defined in bylaws) <br>
+required to be present at a meeting for an organization to legally transact business or vote. <br>
+Without a quorum, decisions are invalid. <br>
+It ensures balanced representation and prevents small groups from imposing decisions. 
 ```
 
 ## Team
