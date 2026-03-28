@@ -70,14 +70,21 @@ export default function ExecDashboard() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto space-y-6">
-      <motion.div
-        initial={{ opacity: 0, y: 12 }}
-        animate={{ opacity: 1, y: 0 }}
-      >
-        <h2 className="text-lg font-semibold text-foreground mb-1">Executive Overview</h2>
-        <p className="text-sm text-muted-foreground">KPI dashboard & strategic oversight</p>
-      </motion.div>
+    <motion.div
+      data-workflow-tour="manager-assignment"
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="glass rounded-2xl overflow-hidden"
+    >
+      <div className="px-5 pt-5 pb-3">
+        <div className="flex items-center gap-2 mb-1">
+          <div className="w-7 h-7 rounded-lg bg-primary/10 flex items-center justify-center">
+            <Users size={16} className="text-primary" />
+          </div>
+          <h2 className="text-base font-semibold text-foreground">AI Assignment Engine</h2>
+        </div>
+        <p className="text-xs text-muted-foreground">AI recommends optimal caseworker teams per case based on expertise, load & history</p>
+      </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {metrics.map((m, i) => {
