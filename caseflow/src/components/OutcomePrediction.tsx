@@ -1,7 +1,8 @@
-import { mockCases, taxonomyColors, Taxonomy } from "@/lib/mockData";
+import { mockCases, taxonomyColors } from "@/lib/mockData";
 import { motion } from "framer-motion";
-import { Sparkles, TrendingUp, ShieldAlert, Target } from "lucide-react";
+import { Sparkles, TrendingUp, ShieldAlert } from "lucide-react";
 import { useMemo } from "react";
+import CaseClassificationVisual from "@/components/CaseClassificationVisual";
 
 function formatCurrency(n: number) {
   if (n >= 1000) return `$${(n / 1000).toFixed(0)}K`;
@@ -14,12 +15,6 @@ export default function OutcomePrediction() {
     []
   );
 
-  const taxonomyCounts = useMemo(() => {
-    const counts = new Map<Taxonomy, number>();
-    mockCases.forEach((c) => counts.set(c.topic, (counts.get(c.topic) || 0) + 1));
-    return Array.from(counts.entries()).sort((a, b) => b[1] - a[1]);
-  }, []);
-
   const maxExposure = Math.max(...ranked.map((c) => c.predictedExposure));
 
   return (
@@ -29,37 +24,15 @@ export default function OutcomePrediction() {
       transition={{ delay: 0.15 }}
       className="space-y-5"
     >
-      {/* Taxonomy Map */}
-      <div className="glass rounded-xl p-5">
-        <div className="flex items-center gap-2 mb-3">
-          <Target size={14} className="text-primary" />
-          <h3 className="text-sm font-semibold text-foreground">Case Taxonomy</h3>
-        </div>
-        <div className="flex flex-wrap gap-2">
-          {taxonomyCounts.map(([taxonomy, count]) => {
-            const style = taxonomyColors[taxonomy];
-            return (
-              <div
-                key={taxonomy}
-                className={`flex items-center gap-2 px-3 py-2 rounded-lg border ${style.bg} ${style.border}`}
-              >
-                <span className={`text-xs font-semibold ${style.text}`}>{taxonomy}</span>
-                <span className={`text-xs font-bold ${style.text} bg-white/60 rounded-full w-5 h-5 flex items-center justify-center`}>
-                  {count}
-                </span>
-              </div>
-            );
-          })}
-        </div>
-      </div>
+      <CaseClassificationVisual />
 
       {/* AI Outcome Predictions */}
-      <div className="glass rounded-xl p-5">
+      <div className="surface-card rounded-xl p-5">
         <div className="flex items-center gap-2 mb-1">
           <Sparkles size={14} className="text-primary" />
-          <h3 className="text-sm font-semibold text-foreground">AI Outcome Predictions</h3>
+          <h3 className="text-sm font-semibold text-foreground">AI outcome predictions</h3>
         </div>
-        <p className="text-xs text-muted-foreground mb-4">Ranked by predicted exposure & risk</p>
+        <p className="text-xs text-muted-foreground mb-4">Ranked by predicted exposure and risk</p>
 
         <div className="space-y-3">
           {ranked.map((c, i) => {

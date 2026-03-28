@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Role, RoleTask, roleTasks } from "@/lib/mockData";
 import { motion } from "framer-motion";
 import { CheckCircle2, Circle, Link2 } from "lucide-react";
@@ -8,14 +8,18 @@ interface TaskListProps {
 }
 
 const roleDescriptions: Record<Role, string> = {
-  caseworker: "Your fieldwork & follow-ups",
-  manager: "Assignments & oversight",
-  approver: "Approvals & sign-offs",
-  exec: "Strategic actions",
+  caseworker: "Field visits, evidence, and constituent follow-up",
+  manager: "Load balancing, escalations, and AI assignment QA",
+  approver: "Legislative drafts, dual review, and exposure memos",
+  exec: "Board briefings, budgets, and policy council prep",
 };
 
 export default function TaskList({ role }: TaskListProps) {
   const [tasks, setTasks] = useState<RoleTask[]>(roleTasks[role]);
+
+  useEffect(() => {
+    setTasks(roleTasks[role]);
+  }, [role]);
 
   const toggle = (id: string) => {
     setTasks((prev) =>
@@ -30,11 +34,11 @@ export default function TaskList({ role }: TaskListProps) {
     <motion.div
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
-      className="glass rounded-xl p-5"
+      className="surface-card rounded-xl p-5"
     >
       <div className="flex items-center justify-between mb-4">
         <div>
-          <h3 className="text-sm font-semibold text-foreground">Your Tasks</h3>
+          <h3 className="text-sm font-semibold tracking-tight text-foreground">Your tasks</h3>
           <p className="text-xs text-muted-foreground">{roleDescriptions[role]}</p>
         </div>
         <span className="text-xs font-medium bg-primary/10 text-primary px-2 py-0.5 rounded-full">
