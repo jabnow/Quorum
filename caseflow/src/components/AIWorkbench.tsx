@@ -62,8 +62,9 @@ export default function AIWorkbench() {
           label: file.name,
           confidence: Math.round((analysis?.confidence || 0.85) * 100),
           icon: file.type.startsWith("image/") ? Image : file.type.startsWith("audio/") ? Mic : FileText,
-          status: analysis?.summary?.slice(0, 40) || "Processed by Gemini",
+          status: analysis?.summary?.slice(0, 80) || "Processed by Gemini",
           messageId: result.message?._id,
+          fullAnalysis: analysis?.summary || analysis?.extractedText || "AI analysis complete. Click to view details.",
         };
         
         setEvidenceList(prev => [newItem, ...prev]);
@@ -209,9 +210,8 @@ export default function AIWorkbench() {
                       <span className="text-[10px] font-semibold text-primary uppercase tracking-wide">AI Analysis</span>
                     </div>
                     <p className="text-xs text-foreground leading-relaxed">
-                      Evidence corroborates tenant claims. {evidenceList[selectedEvidence].label} shows
-                      clear indicators supporting case escalation. Cross-referencing with {evidenceList.length - 1} other
-                      evidence items reveals a consistent pattern of violations.
+                      {evidenceList[selectedEvidence]?.fullAnalysis 
+                        || `Evidence corroborates tenant claims. ${evidenceList[selectedEvidence].label} shows clear indicators supporting case escalation. Cross-referencing with ${evidenceList.length - 1} other evidence items reveals a consistent pattern of violations.`}
                     </p>
                   </motion.div>
                 )}
